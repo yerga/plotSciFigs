@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>tabPlotWidget</class>
+ <widget class="QWidget" name="tabPlotWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>714</width>
+    <height>563</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Plot type</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboType">
+       <item>
+        <property name="text">
+         <string>LinePlot</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>DotPlot</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>TafelPlot</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>SpectroAD</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>MultiSpectra</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Image</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>pH</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>CalPlot</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>SpectraEvo</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Filename</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="filenameBox"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="browseBtn">
+       <property name="text">
+        <string>Browse</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="checkBox">
+     <property name="text">
+      <string>DoubleAxis</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Labels</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>x Label 1</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="xlabel1line"/>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>y Label 1</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="ylabel1line"/>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>y Label 2</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="ylabel2line"/>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>Limits</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <widget class="QLabel" name="label_8">
+          <property name="text">
+           <string>x limit</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="xlimitline"/>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_9">
+          <property name="text">
+           <string>y1 limit</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="y1limitline"/>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_10">
+          <property name="text">
+           <string>y2 limit</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="y2limitline"/>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Locations</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QComboBox" name="comboBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <item>
+        <property name="text">
+         <string>best</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>upper right</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>upper left</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>lower right</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>lower left</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>right</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>center left</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>center right</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>lower center</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>upper center</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>center</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Legends</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1" colspan="2">
+      <widget class="QLineEdit" name="legendline"/>
+     </item>
+     <item row="3" column="2">
+      <widget class="QComboBox" name="comboBox_2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <item>
+        <property name="text">
+         <string>best</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>upper right</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>upper left</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>lower right</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>lower left</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>right</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>center left</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>center right</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>lower center</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>upper center</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>center</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
