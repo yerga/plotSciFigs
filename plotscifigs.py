@@ -153,6 +153,10 @@ class TabPlotWidget (QWidget):
         self.legend1CB = self.ui.legend1CB
         self.legend2CB = self.ui.legend2CB
 
+        self.xaxislocator = self.ui.xaxislocator
+        self.y1axislocator = self.ui.y1axislocator
+        self.y2axislocator = self.ui.y2axislocator
+
 
     def browseDialog(self):
         filename, filter = QFileDialog.getOpenFileName(self, 'Select file')
@@ -172,8 +176,12 @@ class TabPlotWidget (QWidget):
         doubleaxis = self.doubleaxisCB.isChecked()
         legend1loc = self.legend1CB.currentText()
         legend2loc = self.legend2CB.currentText()
+        xaxislocator = self.xaxislocator.text()
+        y1axislocator = self.y1axislocator.text()
+        y2axislocator = self.y2axislocator.text()
 
-        return plottype, filename, xlabel1, ylabel1, ylabel2, legends, xlimit, y1limit, y2limit, doubleaxis, legend1loc, legend2loc
+        return plottype, filename, xlabel1, ylabel1, ylabel2, legends, xlimit, y1limit, y2limit, \
+               doubleaxis, legend1loc, legend2loc, xaxislocator, y1axislocator, y2axislocator
 
 if __name__ == "__main__":
 

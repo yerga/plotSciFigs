@@ -23,13 +23,14 @@ __program__ = "plotSciFigs"
 __version__ = "0.0.1"
 
 from colors import default_color_cycler as dcc
-#from matplotlib.ticker import MultipleLocator
+from matplotlib.ticker import MultipleLocator
 
 
 class LinePlot():
     def __init__(self, plotconfig):
         self.plottype, self.filename, self.xlabel1, self.ylabel1, self.ylabel2, self.legends, \
-            self.xlimit, self.y1limit, self.y2limit, self.doubleaxis, self.legend1loc, self.legend2loc = plotconfig
+            self.xlimit, self.y1limit, self.y2limit, self.doubleaxis, self.legend1loc, self.legend2loc, \
+            self.xaxislocator, self.y1axislocator, self.y2axislocator = plotconfig
 
     def plot(self, axis, plotdata):
         xdata1, ydata1, xdata2, ydata2 = plotdata
@@ -47,7 +48,6 @@ class LinePlot():
                 legend1 = self.legends.split(";")
             else:
                 legend1 = [""]*len(xdata1)
-
 
         for i in range(len(xdata1)):
             line, = axis.plot(xdata1[i], ydata1[i], ls="-", label=legend1[i])
@@ -77,14 +77,19 @@ class LinePlot():
 
         leg = axis.legend(loc=self.legend1loc, shadow=False)
 
+        if self.xaxislocator:
+            yml = MultipleLocator(float(self.xaxislocator))
+            axis.xaxis.set_major_locator(yml)
+
+        if self.y1axislocator:
+            yml = MultipleLocator(float(self.y1axislocator))
+            axis.yaxis.set_major_locator(yml)
+
             # if color:
             #     axis.set_ylabel("Abs / a.u.", color=dcc._left[0]['color'])
-            #     axis.set_xlabel("Wavelength / nm")
             #     axis.tick_params('y', colors=dcc._left[0]['color'])
-            #     axis.set_xlim(250, 750)
-            # else:
-            #     yml = MultipleLocator(0.5)
-            #     axis.xaxis.set_major_locator(yml)
+
+            #TODO: minor locator
             #     minx = MultipleLocator(0.25)
             #     axis.xaxis.set_minor_locator(minx)
 
@@ -96,15 +101,19 @@ class LinePlot():
             ylim1, ylim2 = self.y2limit.split(";")
             axis.set_ylim(float(ylim1), float(ylim2))
 
+        if self.y2axislocator:
+            yml = MultipleLocator(float(self.y2axislocator))
+            axis.yaxis.set_major_locator(yml)
 
-        #TODO: colors, multiplelocator, annotations, etc.
+        #TODO: colors, annotations, etc.
+
+        # TODO: minor locator
+        #     minx = MultipleLocator(0.25)
+        #     axis.xaxis.set_minor_locator(minx)
 
         #self.ax2.set_ylabel('Intensity / kcounts', color=dcc._left[1]['color'])
         #self.ax2.tick_params('y', colors='r')
-        #myl = MultipleLocator(100)
-        #ml = MultipleLocator(50)
-        #self.ax2.xaxis.set_minor_locator(ml)
-        #self.ax2.xaxis.set_major_locator(myl)
+
 
         #plt.gcf().text(0.02, 0.98, "a)", fontsize=11, fontweight="bold")
         #plt.gcf().text(0.02, 0.5, "b)", fontsize=11, fontweight="bold")

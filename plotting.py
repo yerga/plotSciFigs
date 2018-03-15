@@ -44,7 +44,8 @@ class Plotting():
         fig, axnumber = self.createFigure()
 
         #0: self.plottype, 1:self.filename, 2:self.xlabel1, 3:self.ylabel1, 4:self.ylabel2,
-        # 5: self.legends, 6:xlimit1, 7:ylimi1, 8:ylimit2, 9: doubleaxis, 10: legend1loc, 11: legend2loc = plotsconfig
+        # 5: self.legends, 6:xlimit1, 7:ylimi1, 8:ylimit2, 9: doubleaxis, 10: legend1loc, 11: legend2loc,
+        # 12: xaxislocator, 13: y1axislocator, 14: y2axislocator = plotsconfig
 
         for nplot in range(self.nplots):
             print("printing plot: ", nplot + 1)
