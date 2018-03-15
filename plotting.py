@@ -28,6 +28,7 @@ from plotstyle import PlotStyle
 import matplotlib.pyplot as plt
 from extractdata import ExtractData
 from lineplot import LinePlot
+import numpy as np
 
 class Plotting():
     def __init__(self, config, plotsconfig):
@@ -45,7 +46,7 @@ class Plotting():
 
         #0: self.plottype, 1:self.filename, 2:self.xlabel1, 3:self.ylabel1, 4:self.ylabel2,
         # 5: self.legends, 6:xlimit1, 7:ylimi1, 8:ylimit2, 9: doubleaxis, 10: legend1loc, 11: legend2loc,
-        # 12: xaxislocator, 13: y1axislocator, 14: y2axislocator = plotsconfig
+        # 12: xaxislocator, 13: y1axislocator, 14: y2axislocator, 15: converty, 16: converty2 = plotsconfig
 
         for nplot in range(self.nplots):
             print("printing plot: ", nplot + 1)
@@ -53,7 +54,8 @@ class Plotting():
             plotfilename = plotsconfig[nplot][1]
             print("filename: ", plotfilename)
 
-            plotdata = self.getPlotData(plottype, plotfilename, plotsconfig[nplot][9])
+            plotdata = self.getPlotData(plottype, plotfilename, plotsconfig[nplot][9], plotsconfig[nplot][15],
+                                        plotsconfig[nplot][16])
 
             try:
                 naxis = axnumber[nplot]
@@ -70,11 +72,22 @@ class Plotting():
         plt.show()
 
 
-    def getPlotData(self, plottype, plotfilename, doubleaxis):
+    def getPlotData(self, plottype, plotfilename, doubleaxis, converty, converty2):
         exdata = ExtractData(plottype, plotfilename, doubleaxis)
         #xdata, ydata, xdata2, ydata2
         plotdata = exdata.get_data()
-        #TODO: normalize Y, area elctrodica, unidades, etc.
+
+        print("convert; ", converty, " ", converty2)
+
+        if converty:
+            for i in range(len(plotdata[1])):
+                plotdata[1][i] = np.array(plotdata[1][i]).astype(float) * float(converty)
+
+        if converty2:
+            for i in range(len(plotdata[3])):
+                plotdata[3][i] = np.array(plotdata[3][i]).astype(float) * float(converty2)
+
+        #TODO: normalize Y
 
         return plotdata
 

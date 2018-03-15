@@ -157,6 +157,9 @@ class TabPlotWidget (QWidget):
         self.y1axislocator = self.ui.y1axislocator
         self.y2axislocator = self.ui.y2axislocator
 
+        self.convertyline = self.ui.convertYline
+        self.converty2line = self.ui.convertY2line
+
 
     def browseDialog(self):
         filename, filter = QFileDialog.getOpenFileName(self, 'Select file')
@@ -179,9 +182,11 @@ class TabPlotWidget (QWidget):
         xaxislocator = self.xaxislocator.text()
         y1axislocator = self.y1axislocator.text()
         y2axislocator = self.y2axislocator.text()
+        converty = self.convertyline.text()
+        converty2 = self.converty2line.text()
 
         return plottype, filename, xlabel1, ylabel1, ylabel2, legends, xlimit, y1limit, y2limit, \
-               doubleaxis, legend1loc, legend2loc, xaxislocator, y1axislocator, y2axislocator
+               doubleaxis, legend1loc, legend2loc, xaxislocator, y1axislocator, y2axislocator, converty, converty2
 
 if __name__ == "__main__":
 
