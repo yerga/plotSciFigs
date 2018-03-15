@@ -49,7 +49,6 @@ class LinePlot():
                 legend1 = [""]*len(xdata1)
 
 
-        #print("plotdata: ", plotdata)
         for i in range(len(xdata1)):
             line, = axis.plot(xdata1[i], ydata1[i], ls="-", label=legend1[i])
 
@@ -64,11 +63,7 @@ class LinePlot():
 
             self.set_format_double(axis2)
 
-
-
             # color=dcc._left[1]['color'], ls="-", label=legends[i+1])
-
-
 
     def set_format(self, axis):
         axis.set_xlabel(self.xlabel1)

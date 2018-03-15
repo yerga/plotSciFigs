@@ -43,7 +43,8 @@ class Plotting():
 
         fig, axnumber = self.createFigure()
 
-        #self.plottype, self.filename, self.xlabel1, self.ylabel1, self.xlabel2, self.ylabel2, self.legends = plotsconfig
+        #0: self.plottype, 1:self.filename, 2:self.xlabel1, 3:self.ylabel1, 4:self.ylabel2,
+        # 5: self.legends, 6:xlimit1, 7:ylimi1, 8:ylimit2, 9: doubleaxis, 10: legend1loc, 11: legend2loc = plotsconfig
 
         for nplot in range(self.nplots):
             print("printing plot: ", nplot + 1)
@@ -51,7 +52,7 @@ class Plotting():
             plotfilename = plotsconfig[nplot][1]
             print("filename: ", plotfilename)
 
-            plotdata = self.getPlotData(plottype, plotfilename)
+            plotdata = self.getPlotData(plottype, plotfilename, plotsconfig[nplot][9])
 
             try:
                 naxis = axnumber[nplot]
@@ -61,7 +62,6 @@ class Plotting():
             plot = self.plotPlot(plottype, plotdata, plotsconfig[nplot], naxis)
 
 
-
         # TODO: remove when creating customized figures
         plt.tight_layout()
 
@@ -69,8 +69,8 @@ class Plotting():
         plt.show()
 
 
-    def getPlotData(self, plottype, plotfilename):
-        exdata = ExtractData(plottype, plotfilename)
+    def getPlotData(self, plottype, plotfilename, doubleaxis):
+        exdata = ExtractData(plottype, plotfilename, doubleaxis)
         #xdata, ydata, xdata2, ydata2
         plotdata = exdata.get_data()
         #TODO: normalize Y, area elctrodica, unidades, etc.
@@ -79,19 +79,15 @@ class Plotting():
 
 
     def plotPlot(self, plottype, plotdata, plotconfig, axis):
-        xdata1, ydata1, xdata2, ydata2 = plotdata
-
-        #TODO: double axis
-        doubleaxis = True
-
+        #xdata1, ydata1, xdata2, ydata2 = plotdata
         if plottype == "LinePlot":
-            lineplot = LinePlot(doubleaxis, plotconfig)
+            lineplot = LinePlot(plotconfig)
             lineplot.plot(axis, plotdata)
 
 
     def createFigure(self):
 
-        #TODO: create special 2x2 singlecolumn figures; 2+1 single column figures, etc.
+        #TODO: create special 2+1 single column figures, etc.
 
         # fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2)
         # axnumber = [ax1, ax2, ax3, ax4]

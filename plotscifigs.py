@@ -150,6 +150,9 @@ class TabPlotWidget (QWidget):
         self.y1limitlne = self.ui.y1limitline
         self.y2limitline = self.ui.y2limitline
 
+        self.legend1CB = self.ui.legend1CB
+        self.legend2CB = self.ui.legend2CB
+
 
     def browseDialog(self):
         filename, filter = QFileDialog.getOpenFileName(self, 'Select file')
@@ -167,8 +170,10 @@ class TabPlotWidget (QWidget):
         y2limit = self.y2limitline.text()
         legends = self.legendsline.text()
         doubleaxis = self.doubleaxisCB.isChecked()
+        legend1loc = self.legend1CB.currentText()
+        legend2loc = self.legend2CB.currentText()
 
-        return plottype, filename, xlabel1, ylabel1, ylabel2, legends, xlimit, y1limit, y2limit, doubleaxis
+        return plottype, filename, xlabel1, ylabel1, ylabel2, legends, xlimit, y1limit, y2limit, doubleaxis, legend1loc, legend2loc
 
 if __name__ == "__main__":
 

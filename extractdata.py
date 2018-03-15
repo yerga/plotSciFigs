@@ -26,17 +26,15 @@ import os
 import csv
 
 class ExtractData:
-    def __init__(self, plottype, filename):
+    def __init__(self, plottype, filename, doubleaxis):
         filetype = self.get_filetype(filename)
         print(filetype)
-        # TODO: multipley
-        multipley = True
 
         if filetype == ".csv":
             format = "CSV"
             csvfiles = CSVfiles(filename)
             print("getting CSV data")
-            self.xdata, self.ydata, self.xdata2, self.ydata2 = csvfiles.get_data(plottype, multipley)
+            self.xdata, self.ydata, self.xdata2, self.ydata2 = csvfiles.get_data(plottype, doubleaxis)
 
     def get_data(self):
         return self.xdata, self.ydata, self.xdata2, self.ydata2
@@ -75,16 +73,16 @@ class CSVfiles:
         self.xdata2 = []
         self.ydata2 = []
 
-    def get_data(self, plottype, multipley):
+    def get_data(self, plottype, doubleaxis):
 
         plotlines = ["LinePlot"]
 
         if plottype in plotlines:
-            self.getXYDataColumns(multipley)
+            self.getXYDataColumns(doubleaxis)
 
         return self.xdata, self.ydata, self.xdata2, self.ydata2
 
-    def getXYDataColumns(self, multipley):
+    def getXYDataColumns(self, doubleaxis):
         #col1: X, col2: Y; col3: X; col4: Y...
         #col1: X1; col2: Y1; col3: X2, col4: Y2...
 
@@ -95,8 +93,8 @@ class CSVfiles:
 
         print("num columns: ", self.numcolumns)
 
-
-        if multipley:
+        print("doubleaxis: ", doubleaxis)
+        if doubleaxis:
             for i in range(0, self.numcolumns, 4):
                 # FIXME: 2 plots ydata1, 1 plot ydata2
                 print("getting data from column: ", i)
