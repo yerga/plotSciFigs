@@ -122,11 +122,7 @@ class MainWindow (QMainWindow):
             widgetdata = widget.getData()
             plotsconfig.append(widgetdata)
 
-        # TODO: get data from every activated tab
-        plotsconfig.append(self.getPlotsConfig())
-
-
-        return widgetdata
+        return plotsconfig
 
 
 class TabPlotWidget (QWidget):
