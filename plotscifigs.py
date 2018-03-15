@@ -22,7 +22,7 @@ __license__ = "GPLv3"
 __version__ = "0.1"
 
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QFileDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QFileDialog, QMessageBox
 from ui_mainwindow import Ui_MainWindow
 from ui_tabplotwidget import Ui_tabPlotWidget
 from plotting import Plotting
@@ -55,9 +55,12 @@ class MainWindow (QMainWindow):
             self.tabplotwidgets.append(newwidget)
             tabplot.layout().addWidget(newwidget)
 
-        self.tabplotting = self.ui.tabPlotting
         self.nextbutton = self.ui.nextButton
         self.nextbutton.clicked.connect(self.onNextButtonClicked)
+
+        self.backbutton = self.ui.backButton
+        self.backbutton.clicked.connect(self.onBackButtonClicked)
+
         self.settingsButton = self.ui.settingsButton
 
         self.nplotspin = self.ui.nplotsSpin
@@ -74,11 +77,26 @@ class MainWindow (QMainWindow):
         self.plotbutton = self.ui.plotButton
         self.plotbutton.clicked.connect(self.plotFigure)
 
+        self.actionQuit = self.ui.actionQuit
+        self.actionQuit.triggered.connect(self.quitApp)
+
+        self.actionAbout = self.ui.actionAbout
+        self.actionAbout.triggered.connect(self.aboutApp)
+
+    def quitApp(self):
+        app.quit()
+
     def aspectToggled(self):
         #TODO: improve behaviour, show msg, if verticalplot -> single: True
         if self.verticalRBtn.isChecked():
             self.singleRBtn.setChecked(True)
 
+    def onBackButtonClicked(self):
+        index = self.tabWidget.currentIndex()
+        numtabs = self.tabWidget.count()
+        print(index, numtabs)
+        if index > 0:
+            self.tabWidget.setCurrentIndex(index-1)
 
     def onNextButtonClicked(self):
         index = self.tabWidget.currentIndex()
@@ -124,6 +142,8 @@ class MainWindow (QMainWindow):
 
         return plotsconfig
 
+    def aboutApp(self):
+        aboutdialog = QMessageBox.about(self, "About plotsciFigs", "About the application")
 
 class TabPlotWidget (QWidget):
     def __init__(self, parent=None):
