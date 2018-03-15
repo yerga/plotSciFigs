@@ -101,10 +101,7 @@ class MainWindow (QMainWindow):
 
     def plotFigure(self):
         config = self.getConfig()
-
-        plotsconfig = []
-        #TODO: get data from every activated tab
-        plotsconfig.append(self.getPlotsConfig())
+        plotsconfig = self.getPlotsConfig()
 
         print("plotsconfig: ", plotsconfig)
 
@@ -119,8 +116,15 @@ class MainWindow (QMainWindow):
         return self.nplots, self.singlecolumn, self.verticalplot, self.plotstyle
 
     def getPlotsConfig(self):
-        widget = self.tabplotwidgets[0]
-        widgetdata = widget.getData()
+        plotsconfig = []
+        for i in range(self.nplots):
+            widget = self.tabplotwidgets[i]
+            widgetdata = widget.getData()
+            plotsconfig.append(widgetdata)
+
+        # TODO: get data from every activated tab
+        plotsconfig.append(self.getPlotsConfig())
+
 
         return widgetdata
 
@@ -140,7 +144,7 @@ class TabPlotWidget (QWidget):
         self.filenameBox = self.ui.filenameBox
         self.typecombo = self.ui.comboType
 
-        #TODO: add multipley to widget
+        self.doubleaxisCB = self.ui.doubleCB
 
         self.xlabel1line = self.ui.xlabel1line
         self.ylabel1line = self.ui.ylabel1line
@@ -166,8 +170,9 @@ class TabPlotWidget (QWidget):
         y1limit = self.y1limitlne.text()
         y2limit = self.y2limitline.text()
         legends = self.legendsline.text()
+        doubleaxis = self.doubleaxisCB.isChecked()
 
-        return plottype, filename, xlabel1, ylabel1, ylabel2, legends, xlimit, y1limit, y2limit
+        return plottype, filename, xlabel1, ylabel1, ylabel2, legends, xlimit, y1limit, y2limit, doubleaxis
 
 if __name__ == "__main__":
 
