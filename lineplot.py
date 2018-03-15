@@ -27,10 +27,9 @@ from colors import default_color_cycler as dcc
 
 
 class LinePlot():
-    def __init__(self, doubleaxis, plotconfig):
-        self.doubleaxis = doubleaxis
+    def __init__(self, plotconfig):
         self.plottype, self.filename, self.xlabel1, self.ylabel1, self.ylabel2, self.legends, \
-            self.xlimit, self.y1limit, self.y2limit = plotconfig
+            self.xlimit, self.y1limit, self.y2limit, self.doubleaxis, self.legend1loc, self.legend2loc = plotconfig
 
     def plot(self, axis, plotdata):
         xdata1, ydata1, xdata2, ydata2 = plotdata
@@ -81,8 +80,7 @@ class LinePlot():
             ylim1, ylim2 = self.y1limit.split(";")
             axis.set_ylim(float(ylim1), float(ylim2))
 
-        # TODO: legend location
-        leg = axis.legend(loc=2, shadow=False)
+        leg = axis.legend(loc=self.legend1loc, shadow=False)
 
             # if color:
             #     axis.set_ylabel("Abs / a.u.", color=dcc._left[0]['color'])
@@ -97,7 +95,7 @@ class LinePlot():
 
     def set_format_double(self, axis):
         axis.set_ylabel(self.ylabel2)
-        axis.legend(loc=1, shadow=False)
+        axis.legend(loc=self.legend2loc, shadow=False)
 
         if self.y2limit:
             ylim1, ylim2 = self.y2limit.split(";")
