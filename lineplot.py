@@ -36,6 +36,12 @@ class LinePlot():
     def plot(self, axis, plotdata):
         xdata1, ydata1, xdata2, ydata2 = plotdata
 
+        if self.plottype == "DotPlot":
+            lineformat = "o-"
+        elif self.plottype == "LinePlot":
+            lineformat = "-"
+
+
         if self.doubleaxis:
             if self.legends:
                 legend1, legend2 = self.legends.split(";;")
@@ -51,7 +57,7 @@ class LinePlot():
                 legend1 = [""]*len(xdata1)
 
         for i in range(len(xdata1)):
-            line, = axis.plot(xdata1[i], ydata1[i], ls="-", label=legend1[i])
+            line, = axis.plot(xdata1[i], ydata1[i], lineformat, label=legend1[i])
 
         self.set_format(axis)
 
@@ -60,7 +66,7 @@ class LinePlot():
         if self.doubleaxis:
             axis2 = axis.twinx()
             for i in range(len(xdata2)):
-                line2, = axis2.plot(xdata2[i], ydata2[i], ls="-", color=dcc._left[i+len(xdata1)]['color'], label=legend2[i])
+                line2, = axis2.plot(xdata2[i], ydata2[i], lineformat, color=dcc._left[i+len(xdata1)]['color'], label=legend2[i])
 
             self.set_format_double(axis2)
 

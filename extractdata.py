@@ -39,7 +39,6 @@ class ExtractData:
     def get_data(self):
         return self.xdata, self.ydata, self.xdata2, self.ydata2
 
-
     def get_filetype(self, filename):
         name, extension = os.path.splitext(filename)
         return extension
@@ -75,7 +74,7 @@ class CSVfiles:
 
     def get_data(self, plottype, doubleaxis):
 
-        plotlines = ["LinePlot"]
+        plotlines = ["LinePlot", "DotPlot"]
 
         if plottype in plotlines:
             self.getXYDataColumns(doubleaxis)
@@ -86,41 +85,28 @@ class CSVfiles:
         #col1: X, col2: Y; col3: X; col4: Y...
         #col1: X1; col2: Y1; col3: X2, col4: Y2...
 
-        xdata = []
-        ydata = []
-        xdata = []
-        ydata = []
-
-        print("num columns: ", self.numcolumns)
-
-        print("doubleaxis: ", doubleaxis)
         if doubleaxis:
             for i in range(0, self.numcolumns, 4):
-                # FIXME: 2 plots ydata1, 1 plot ydata2
+                # FIXME: 2 plots ydata1, 1 plot ydata2, other options, etc
                 print("getting data from column: ", i)
-                xdata1 = self.get_column_data(i)
-                ydata1 = self.get_column_data(i+1)
-                self.xdata.append(xdata1)
-                self.ydata.append(ydata1)
+                self.xdata.append(self.get_column_data(i))
+                self.ydata.append(self.get_column_data(i+1))
                 if i+3 < self.numcolumns:
-                    xdataB = self.get_column_data(i+2)
-                    ydataB = self.get_column_data(i+3)
-                    self.xdata2.append(xdataB)
-                    self.ydata2.append(ydataB)
+                    self.xdata2.append(self.get_column_data(i+2))
+                    self.ydata2.append(self.get_column_data(i+3))
         else:
             for i in range(0, self.numcolumns, 2):
                 print("getting data from column: ", i)
-                xdata1 = self.get_column_data(i)
-                self.xdata.append(xdata1)
-                ydata1 = self.get_column_data(i + 1)
-                self.ydata.append(ydata1)
-
+                self.xdata.append(self.get_column_data(i))
+                self.ydata.append(self.get_column_data(i + 1))
 
     def get_column_data(self, numcol):
         datatotal = []
         print("numrows: ", self.numrows)
-        for i in range(2, self.numrows - 1):
+        for i in range(2, self.numrows):
             #print("numrow: ", i)
+            print ("numcol: ", numcol)
+            print("sdatacsv: ", self.datacsv[i])
             data = self.datacsv[i][numcol].replace(self.dotsreplace3, '').replace(self.dotsreplace1, self.dotsreplace2)
             if data != '':
                 data = float(data)

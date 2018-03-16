@@ -79,6 +79,8 @@ class Plotting():
 
         #print("convert; ", converty, " ", converty2)
 
+        #TODO: smoothing data
+
         if converty:
             for i in range(len(plotdata[1])):
                 plotdata[1][i] = np.array(plotdata[1][i]).astype(float) * float(converty)
@@ -103,7 +105,7 @@ class Plotting():
 
     def plotPlot(self, plottype, plotdata, plotconfig, axis):
         #xdata1, ydata1, xdata2, ydata2 = plotdata
-        if plottype == "LinePlot":
+        if plottype == "LinePlot" or plottype == "DotPlot":
             lineplot = LinePlot(plotconfig)
             lineplot.plot(axis, plotdata)
 
