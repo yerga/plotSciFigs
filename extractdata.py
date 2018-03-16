@@ -17,13 +17,14 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 __author__ = "Daniel Martin-Yerga"
 __email__ = "dyerga@gmail.com"
 __copyright__ = "Copyright 2018"
-__date__ = "13/03/18"
 __license__ = "GPLv3"
 __program__ = "plotSciFigs"
 __version__ = "0.0.1"
 
 import os
 import csv
+import pandas as pd
+import numpy as np
 
 class ExtractData:
     def __init__(self, plottype, filename, doubleaxis):
@@ -35,6 +36,11 @@ class ExtractData:
             csvfiles = CSVfiles(filename)
             print("getting CSV data")
             self.xdata, self.ydata, self.xdata2, self.ydata2 = csvfiles.get_data(plottype, doubleaxis)
+        elif filetype == ".xlsx" or filetype == ".xls":
+            format = "Excel"
+            excelfiles = EXCELfiles(filename)
+            # self.xdata2 = desvstd
+            self.xdata, self.ydata, self.xdata2, self.ydata2 = excelfiles.get_data()
 
     def get_data(self):
         return self.xdata, self.ydata, self.xdata2, self.ydata2
@@ -42,6 +48,39 @@ class ExtractData:
     def get_filetype(self, filename):
         name, extension = os.path.splitext(filename)
         return extension
+
+class EXCELfiles:
+    def __init__(self, filename):
+        excelfile = pd.ExcelFile(filename)
+        csvrows1 = excelfile.parse()
+        self.csvrows = csvrows1.get_values()
+        self.numrows = len(self.csvrows)
+        self.numcolumns = len(self.csvrows[0])
+
+        self.xdata = []
+        self.ydata = []
+        self.xdata2 = []
+        self.ydata2 = []
+
+    def get_data(self):
+        # TODO: option for multiple calplots
+        xdata = [item[0] for item in self.csvrows]
+        self.xdata.append(xdata)
+
+
+        medias = []
+        desvstds = []
+        for i in range(self.numrows):
+            items = self.csvrows[i][1:self.numcolumns]
+            media1 = np.nanmean(items)
+            desvstd1 = np.nanstd(items)
+            medias.append(media1)
+            desvstds.append(desvstd1)
+
+        self.ydata.append(medias)
+        self.xdata2.append(desvstds)
+
+        return self.xdata, self.ydata, self.xdata2, self.ydata2
 
 class CSVfiles:
     def __init__(self, filename):

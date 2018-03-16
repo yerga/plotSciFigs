@@ -17,7 +17,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 __author__ = "Daniel Martin-Yerga"
 __email__ = "dyerga@gmail.com"
 __copyright__ = "Copyright 2018"
-__date__ = "13 / 03 / 18"
 __license__ = "GPLv3"
 __version__ = "0.1"
 

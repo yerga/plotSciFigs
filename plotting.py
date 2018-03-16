@@ -17,18 +17,19 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 __author__ = "Daniel Martin-Yerga"
 __email__ = "dyerga@gmail.com"
 __copyright__ = "Copyright 2018"
-__date__ = "13/03/18"
 __license__ = "GPLv3"
 __program__ = "plotSciFigs"
 __version__ = "0.0.1"
 
 import matplotlib as mpl
 mpl.use("Qt5Agg")
+import numpy as np
 from plotstyle import PlotStyle
 import matplotlib.pyplot as plt
 from extractdata import ExtractData
 from lineplot import LinePlot
-import numpy as np
+from calplot import CalPlot
+
 
 class Plotting():
     def __init__(self, config, plotsconfig):
@@ -108,6 +109,9 @@ class Plotting():
         if plottype == "LinePlot" or plottype == "DotPlot":
             lineplot = LinePlot(plotconfig)
             lineplot.plot(axis, plotdata)
+        elif plottype == "CalPlot":
+            calplot = CalPlot(plotconfig)
+            calplot.plot(axis, plotdata)
 
 
     def createFigure(self):
