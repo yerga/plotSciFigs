@@ -46,7 +46,7 @@ class Plotting():
 
         #0: self.plottype, 1:self.filename, 2:self.xlabel1, 3:self.ylabel1, 4:self.ylabel2,
         # 5: self.legends, 6:xlimit1, 7:ylimi1, 8:ylimit2, 9: doubleaxis, 10: legend1loc, 11: legend2loc,
-        # 12: xaxislocator, 13: y1axislocator, 14: y2axislocator, 15: converty, 16: converty2 = plotsconfig
+        # 12: xaxislocator, 13: y1axislocator, 14: y2axislocator, 15: converty, 16: converty2, 17: normalized = plotsconfig
 
         for nplot in range(self.nplots):
             print("printing plot: ", nplot + 1)
@@ -55,7 +55,7 @@ class Plotting():
             print("filename: ", plotfilename)
 
             plotdata = self.getPlotData(plottype, plotfilename, plotsconfig[nplot][9], plotsconfig[nplot][15],
-                                        plotsconfig[nplot][16])
+                                        plotsconfig[nplot][16], plotsconfig[nplot][17])
 
             try:
                 naxis = axnumber[nplot]
@@ -72,12 +72,12 @@ class Plotting():
         plt.show()
 
 
-    def getPlotData(self, plottype, plotfilename, doubleaxis, converty, converty2):
+    def getPlotData(self, plottype, plotfilename, doubleaxis, converty, converty2, normalized):
         exdata = ExtractData(plottype, plotfilename, doubleaxis)
         #xdata, ydata, xdata2, ydata2
         plotdata = exdata.get_data()
 
-        print("convert; ", converty, " ", converty2)
+        #print("convert; ", converty, " ", converty2)
 
         if converty:
             for i in range(len(plotdata[1])):
@@ -87,7 +87,16 @@ class Plotting():
             for i in range(len(plotdata[3])):
                 plotdata[3][i] = np.array(plotdata[3][i]).astype(float) * float(converty2)
 
-        #TODO: normalize Y
+        if normalized == "Normalized by max":
+            for i in range(len(plotdata[1])):
+                maxvalue = max(plotdata[1][i])
+                for j in range(len(plotdata[1][i])):
+                    plotdata[1][i][j] = plotdata[1][i][j] / maxvalue
+        elif normalized == "Normalized by first":
+            for i in range(len(plotdata[1])):
+                firstvalue = plotdata[1][i][0]
+                for j in range(len(plotdata[1][i])):
+                    plotdata[1][i][j] = plotdata[1][i][j] / firstvalue
 
         return plotdata
 

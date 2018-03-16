@@ -30,7 +30,8 @@ class LinePlot():
     def __init__(self, plotconfig):
         self.plottype, self.filename, self.xlabel1, self.ylabel1, self.ylabel2, self.legends, \
             self.xlimit, self.y1limit, self.y2limit, self.doubleaxis, self.legend1loc, self.legend2loc, \
-            self.xaxislocator, self.y1axislocator, self.y2axislocator, self.converty, self.converty2 = plotconfig
+            self.xaxislocator, self.y1axislocator, self.y2axislocator, self.converty, self.converty2, \
+            self.normalized = plotconfig
 
     def plot(self, axis, plotdata):
         xdata1, ydata1, xdata2, ydata2 = plotdata

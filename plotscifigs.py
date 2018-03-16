@@ -180,6 +180,8 @@ class TabPlotWidget (QWidget):
         self.convertyline = self.ui.convertYline
         self.converty2line = self.ui.convertY2line
 
+        self.normalizeCB = self.ui.normalizedCB
+
 
     def browseDialog(self):
         filename, filter = QFileDialog.getOpenFileName(self, 'Select file')
@@ -204,9 +206,11 @@ class TabPlotWidget (QWidget):
         y2axislocator = self.y2axislocator.text()
         converty = self.convertyline.text()
         converty2 = self.converty2line.text()
+        normalized = self.normalizeCB.currentText()
 
         return plottype, filename, xlabel1, ylabel1, ylabel2, legends, xlimit, y1limit, y2limit, \
-               doubleaxis, legend1loc, legend2loc, xaxislocator, y1axislocator, y2axislocator, converty, converty2
+               doubleaxis, legend1loc, legend2loc, xaxislocator, y1axislocator, y2axislocator, converty, converty2, \
+               normalized
 
 if __name__ == "__main__":
 
