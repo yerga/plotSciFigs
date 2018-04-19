@@ -99,6 +99,54 @@ class PlotStyle():
                    # 0 will make line-type markers, such as '+', 'x', invisible
                    }
 
+        elsevierparams = {'font.family': 'sans-serif',
+                   'font.serif': ['Times', 'Computer Modern Roman'],
+                   'font.sans-serif': ['Helvetica', 'Arial',
+                                       'Computer Modern Sans serif'],
+                   'font.size': 8,
+                   'text.usetex': True,
+                   # To force LaTeX use Helvetica fonts.
+                   'text.latex.preamble': [r'\usepackage{siunitx}',
+                                           r'\sisetup{detect-all}',
+                                           r'\usepackage{helvet}',
+                                           r'\usepackage[eulergreek,EULERGREEK]{sansmath}',
+                                           r'\sansmath'],
+                   'axes.prop_cycle': default_color_cycler,
+                   'axes.labelsize': 8,
+                   'axes.linewidth': 1,
+
+                   'figure.figsize': (_width, _height),
+                   'figure.subplot.left': 0.125,
+                   'figure.subplot.right': 0.95,
+                   'figure.subplot.bottom': 0.1,
+                   'figure.subplot.top': 0.95,
+
+                   'savefig.dpi': 300,
+                   'savefig.format': 'eps',
+
+                   'legend.fontsize': 8,
+                   'legend.frameon': False,
+                   'legend.numpoints': 1,
+                   'legend.handlelength': 2,
+                   'legend.scatterpoints': 1,
+                   'legend.labelspacing': 0.5,
+                   'legend.markerscale': 0.9,
+                   'legend.handletextpad': 0.5,  # pad between handle and text
+                   'legend.borderaxespad': 0.5,  # pad between legend and axes
+                   'legend.borderpad': 0.5,  # pad between legend and legend content
+                   'legend.columnspacing': 1,  # pad between each legend column
+
+                   # 'text.fontsize' : 7,  # use font.size for Matplotlib 1.4.2+
+                   'xtick.labelsize': 8,
+                   'ytick.labelsize': 8,
+
+                   'lines.linewidth': 1,
+                   'lines.markersize': 4,
+                   # 'lines.markeredgewidth' : 0,
+                   # 0 will make line-type markers, such as '+', 'x', invisible
+                   }
+
+
         webparams = {'font.family': 'sans-serif',
                    'font.serif': ['Bitstream Vera Serif', 'Computer Modern Roman'],
                    'font.sans-serif': ['Helvetica', 'Arial', 'Lucida Grande'],
@@ -237,6 +285,8 @@ class PlotStyle():
             self._params = acsparams
         elif journal == "RSC":
             self._params = rscparams
+        elif journal == "Elsevier":
+            self._params = elsevierparams
         elif journal == "Web":
             self._params = webparams
         elif journal == "Presentation":
@@ -253,6 +303,9 @@ class PlotStyle():
         elif journal == "RSC":
             width_single_column = 3.26  # 8.3 cm
             width_double_column = 6.73  # 17.1 cm
+        elif journal == "Elsevier":
+            width_single_column = 3.54
+            width_double_column = 7.48
         elif journal == "Web":
             _width_normal_px = 440
             save_dpi = 150
