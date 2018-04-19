@@ -25,6 +25,7 @@ from colors import default_color_cycler as dcc
 from matplotlib.ticker import MultipleLocator
 from scipy import stats
 import numpy as np
+from matplotlib.patches import Ellipse
 
 class CalPlot():
     def __init__(self, plotconfig):
@@ -33,7 +34,7 @@ class CalPlot():
             self.xaxislocator, self.y1axislocator, self.y2axislocator, self.converty, self.converty2, \
             self.normalized = plotconfig
 
-    def plot(self, axis, plotdata):
+    def plot(self, axis, plotdata, anns):
         xdata1, ydata1, xdata2, ydata2 = plotdata
 
         if self.doubleaxis:
@@ -70,6 +71,18 @@ class CalPlot():
         #     self.set_format_double(axis2)
 
             # color=dcc._left[1]['color'], ls="-", label=legends[i+1])
+
+        self.plotAnnotations(anns, axis)
+
+    def plotAnnotations(self, anns, axis):
+        for i in range(len(anns)):
+            if anns[i][1] == "Arrow":
+                axis.arrow(x=float(anns[i][2]), y=float(anns[i][3]), dx=float(anns[i][4]), dy=float(anns[i][5]),
+                          head_width=float(anns[i][6]), head_length=float(anns[i][7]), fc='k', ec='k')
+            elif anns[i][1] == "Ellipse":
+                el = Ellipse((float(anns[i][2]), float(anns[i][3])), float(anns[i][4]), float(anns[i][5]),
+                             angle=float(anns[i][6]), edgecolor=anns[i][7], fill=False, linestyle=":")
+                axis.add_patch(el)
 
     def set_format(self, axis):
         axis.set_xlabel(self.xlabel1)
@@ -111,7 +124,7 @@ class CalPlot():
             yml = MultipleLocator(float(self.y2axislocator))
             axis.yaxis.set_major_locator(yml)
 
-        #TODO: colors, annotations, etc.
+        #TODO: colors, etc.
 
         # TODO: minor locator
         #     minx = MultipleLocator(0.25)
@@ -119,7 +132,3 @@ class CalPlot():
 
         #self.ax2.set_ylabel('Intensity / kcounts', color=dcc._left[1]['color'])
         #self.ax2.tick_params('y', colors='r')
-
-
-        #plt.gcf().text(0.02, 0.98, "a)", fontsize=11, fontweight="bold")
-        #plt.gcf().text(0.02, 0.5, "b)", fontsize=11, fontweight="bold")

@@ -82,6 +82,8 @@ class MainWindow (QMainWindow):
         self.actionAbout = self.ui.actionAbout
         self.actionAbout.triggered.connect(self.aboutApp)
 
+        self.annTextEdit = self.ui.annTextEdit
+
     def quitApp(self):
         app.quit()
 
@@ -122,7 +124,28 @@ class MainWindow (QMainWindow):
 
         print("plotsconfig: ", plotsconfig)
 
-        plotting = Plotting(config, plotsconfig)
+        annotations = self.getAnnotations()
+
+        plotting = Plotting(config, plotsconfig, annotations)
+
+    def getAnnotations(self):
+        """
+        Annotations:
+        Text: x, y, text
+        Arrow: nplot, Arrow, x, y, dx, dy, headwith, headlength
+        Ellipse: nplot, Ellipse, x, y, width, height, angle, color,
+        :return:
+        """
+        anntext = self.annTextEdit.toPlainText()
+        textlines = anntext.split("\n")
+        annotations = []
+        for i in range(len(textlines)):
+            splittedtext = textlines[i].split(";")
+            annotations.append(splittedtext)
+
+        print("annotations: ", annotations)
+
+        return annotations
 
     def getConfig(self):
         self.plotstyle = self.combostyle.currentText()

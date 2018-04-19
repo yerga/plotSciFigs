@@ -32,7 +32,7 @@ from calplot import CalPlot
 
 
 class Plotting():
-    def __init__(self, config, plotsconfig):
+    def __init__(self, config, plotsconfig, annotations):
 
         self.nplots, self.singlecolumn, self.verticalplot, self.plotstyle = config
 
@@ -50,6 +50,8 @@ class Plotting():
         # 12: xaxislocator, 13: y1axislocator, 14: y2axislocator, 15: converty, 16: converty2, 17: normalized,
         # 18: desvest, 19: lineplot, 20: multicolor = plotsconfig
 
+        self.plotTextAnnotations(plt, annotations)
+
         for nplot in range(self.nplots):
             print("printing plot: ", nplot + 1)
             plottype = plotsconfig[nplot][0]
@@ -64,8 +66,8 @@ class Plotting():
             except TypeError:
                 naxis = axnumber
 
-            plot = self.plotPlot(plottype, plotdata, plotsconfig[nplot], naxis)
-
+            other_anns = self.getOtherAnnotations(annotations, nplot+1)
+            plot = self.plotPlot(plottype, plotdata, plotsconfig[nplot], naxis, other_anns)
 
         # TODO: remove when creating customized figures
         plt.tight_layout()
@@ -73,6 +75,20 @@ class Plotting():
         # plt.savefig('test2.png', format='png')
         plt.show()
 
+    def plotTextAnnotations(self, plt, anns):
+        for i in range(len(anns)):
+            if anns[i][0] == "Text":
+                plt.gcf().text(x=float(anns[i][2]), y=float(anns[i][3]), s=anns[i][1])
+
+    def getOtherAnnotations(self, anns, nplot):
+        other_anns = []
+        anntypes = ["Arrow", "Ellipse"]
+        for i in range(len(anns)):
+            if anns[i][1] in anntypes:
+                if int(anns[i][0]) == nplot:
+                    other_anns.append(anns[i])
+
+        return other_anns
 
     def getPlotData(self, plottype, plotfilename, doubleaxis, converty, converty2, normalized, desvest):
         exdata = ExtractData(plottype, plotfilename, doubleaxis, desvest)
@@ -105,14 +121,14 @@ class Plotting():
         return plotdata
 
 
-    def plotPlot(self, plottype, plotdata, plotconfig, axis):
+    def plotPlot(self, plottype, plotdata, plotconfig, axis, anns):
         #xdata1, ydata1, xdata2, ydata2 = plotdata
         if plottype == "LinePlot" or plottype == "DotPlot":
             lineplot = LinePlot(plotconfig)
-            lineplot.plot(axis, plotdata)
+            lineplot.plot(axis, plotdata, anns)
         elif plottype == "CalPlot":
             calplot = CalPlot(plotconfig)
-            calplot.plot(axis, plotdata)
+            calplot.plot(axis, plotdata, anns)
 
 
     def createFigure(self):
