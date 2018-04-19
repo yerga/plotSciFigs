@@ -47,7 +47,8 @@ class Plotting():
 
         #0: self.plottype, 1:self.filename, 2:self.xlabel1, 3:self.ylabel1, 4:self.ylabel2,
         # 5: self.legends, 6:xlimit1, 7:ylimi1, 8:ylimit2, 9: doubleaxis, 10: legend1loc, 11: legend2loc,
-        # 12: xaxislocator, 13: y1axislocator, 14: y2axislocator, 15: converty, 16: converty2, 17: normalized = plotsconfig
+        # 12: xaxislocator, 13: y1axislocator, 14: y2axislocator, 15: converty, 16: converty2, 17: normalized,
+        # 18: desvest, 19: lineplot, 20: multicolor = plotsconfig
 
         for nplot in range(self.nplots):
             print("printing plot: ", nplot + 1)
@@ -56,7 +57,7 @@ class Plotting():
             print("filename: ", plotfilename)
 
             plotdata = self.getPlotData(plottype, plotfilename, plotsconfig[nplot][9], plotsconfig[nplot][15],
-                                        plotsconfig[nplot][16], plotsconfig[nplot][17])
+                                        plotsconfig[nplot][16], plotsconfig[nplot][17], plotsconfig[nplot][18])
 
             try:
                 naxis = axnumber[nplot]
@@ -73,8 +74,8 @@ class Plotting():
         plt.show()
 
 
-    def getPlotData(self, plottype, plotfilename, doubleaxis, converty, converty2, normalized):
-        exdata = ExtractData(plottype, plotfilename, doubleaxis)
+    def getPlotData(self, plottype, plotfilename, doubleaxis, converty, converty2, normalized, desvest):
+        exdata = ExtractData(plottype, plotfilename, doubleaxis, desvest)
         #xdata, ydata, xdata2, ydata2
         plotdata = exdata.get_data()
 

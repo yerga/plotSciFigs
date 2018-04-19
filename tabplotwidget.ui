@@ -72,6 +72,27 @@
        </item>
       </widget>
      </item>
+     <item>
+      <widget class="QCheckBox" name="desvestBox">
+       <property name="text">
+        <string>Desvest</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="lineplotBox">
+       <property name="text">
+        <string>Line</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="multicolorCB">
+       <property name="text">
+        <string>MulticolorDots</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>

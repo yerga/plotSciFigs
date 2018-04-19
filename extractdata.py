@@ -27,7 +27,7 @@ import pandas as pd
 import numpy as np
 
 class ExtractData:
-    def __init__(self, plottype, filename, doubleaxis):
+    def __init__(self, plottype, filename, doubleaxis, desvest):
         filetype = self.get_filetype(filename)
         print(filetype)
 
@@ -35,7 +35,7 @@ class ExtractData:
             format = "CSV"
             csvfiles = CSVfiles(filename)
             print("getting CSV data")
-            self.xdata, self.ydata, self.xdata2, self.ydata2 = csvfiles.get_data(plottype, doubleaxis)
+            self.xdata, self.ydata, self.xdata2, self.ydata2 = csvfiles.get_data(plottype, doubleaxis, desvest)
         elif filetype == ".xlsx" or filetype == ".xls":
             format = "Excel"
             excelfiles = EXCELfiles(filename)
@@ -111,12 +111,11 @@ class CSVfiles:
         self.xdata2 = []
         self.ydata2 = []
 
-    def get_data(self, plottype, doubleaxis):
-
-        plotlines = ["LinePlot", "DotPlot"]
-
-        if plottype in plotlines:
+    def get_data(self, plottype, doubleaxis, desvest):
+        if plottype == "LinePlot":
             self.getXYDataColumns(doubleaxis)
+        elif plottype == "DotPlot":
+            self.getXYDotPlot(doubleaxis, desvest)
 
         return self.xdata, self.ydata, self.xdata2, self.ydata2
 
@@ -138,6 +137,19 @@ class CSVfiles:
                 print("getting data from column: ", i)
                 self.xdata.append(self.get_column_data(i))
                 self.ydata.append(self.get_column_data(i + 1))
+
+    def getXYDotPlot(self, doubleaxis, desvest):
+        if desvest:
+            column_step = 3
+        else:
+            column_step = 2
+
+        for i in range(0, self.numcolumns, column_step):
+            print("getting data from column: ", i)
+            self.xdata.append(self.get_column_data(i))
+            self.ydata.append(self.get_column_data(i + 1))
+            if desvest:
+                self.xdata2.append(self.get_column_data(i + 2))
 
     def get_column_data(self, numcol):
         datatotal = []

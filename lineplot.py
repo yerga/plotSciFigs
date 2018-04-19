@@ -25,22 +25,22 @@ __version__ = "0.0.1"
 from colors import default_color_cycler as dcc
 from matplotlib.ticker import MultipleLocator
 
-
 class LinePlot():
     def __init__(self, plotconfig):
         self.plottype, self.filename, self.xlabel1, self.ylabel1, self.ylabel2, self.legends, \
             self.xlimit, self.y1limit, self.y2limit, self.doubleaxis, self.legend1loc, self.legend2loc, \
             self.xaxislocator, self.y1axislocator, self.y2axislocator, self.converty, self.converty2, \
-            self.normalized = plotconfig
+            self.normalized, self.desvest, self.plotline, self.multicolor = plotconfig
 
     def plot(self, axis, plotdata):
         xdata1, ydata1, xdata2, ydata2 = plotdata
 
         if self.plottype == "DotPlot":
-            lineformat = "o-"
+            lineformat = "o"
+            if self.plotline:
+                lineformat = "o--"
         elif self.plottype == "LinePlot":
             lineformat = "-"
-
 
         if self.doubleaxis:
             if self.legends:
@@ -57,7 +57,22 @@ class LinePlot():
                 legend1 = [""]*len(xdata1)
 
         for i in range(len(xdata1)):
-            line, = axis.plot(xdata1[i], ydata1[i], lineformat, label=legend1[i])
+
+            if self.multicolor and not self.plotline:
+                colors = []
+                for j in range(len(xdata1[i])):
+                    colors.append(dcc._left[j]['color'])
+            else:
+                colors = dcc._left[i]['color']
+
+            if self.plotline:
+                line, = axis.plot(xdata1[i], ydata1[i], lineformat, label=legend1[i], color=colors)
+            else:
+                line = axis.scatter(xdata1[i], ydata1[i], c=colors)
+
+            if self.desvest:
+                axis.errorbar(xdata1[i], ydata1[i], yerr=xdata2[i], fmt='none', ecolor='k', capsize=2)
+
 
         self.set_format(axis)
 

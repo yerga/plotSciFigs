@@ -180,6 +180,9 @@ class TabPlotWidget (QWidget):
         self.converty2line = self.ui.convertY2line
 
         self.normalizeCB = self.ui.normalizedCB
+        self.lineplotCB = self.ui.lineplotBox
+        self.desvestCB = self.ui.desvestBox
+        self.multicolordotsCB = self.ui.multicolorCB
 
 
     def browseDialog(self):
@@ -206,10 +209,14 @@ class TabPlotWidget (QWidget):
         converty = self.convertyline.text()
         converty2 = self.converty2line.text()
         normalized = self.normalizeCB.currentText()
+        desvest = self.desvestCB.isChecked()
+        lineplot = self.lineplotCB.isChecked()
+        multicolor = self.multicolordotsCB.isChecked()
 
         return plottype, filename, xlabel1, ylabel1, ylabel2, legends, xlimit, y1limit, y2limit, \
                doubleaxis, legend1loc, legend2loc, xaxislocator, y1axislocator, y2axislocator, converty, converty2, \
-               normalized
+               normalized, desvest, lineplot, multicolor
+
 
 if __name__ == "__main__":
 
