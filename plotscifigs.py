@@ -183,7 +183,7 @@ class TabPlotWidget (QWidget):
 
 
     def browseDialog(self):
-        filename, filter = QFileDialog.getOpenFileName(self, 'Select file')
+        filename, ffilter = QFileDialog.getOpenFileName(self, 'Select file')
         if filename:
             self.filenameBox.setText(filename)
 
